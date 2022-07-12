@@ -223,7 +223,7 @@ impl Grid {
             return GameStates::StillPlaying;
         }
     
-        return GameStates::Tie;
+        GameStates::Tie
     }
     
     
