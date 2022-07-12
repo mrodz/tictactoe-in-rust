@@ -1,7 +1,6 @@
 fn main() {
     let mut game: Game = Game::new();
     game.start();
-    game.start();
 }
 
 /// ### Abstraction for a Game of TicTacToe.
