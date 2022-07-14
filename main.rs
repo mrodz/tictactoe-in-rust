@@ -8,8 +8,8 @@ fn main() {
 mod tic_tac_toe {
     /// ### Abstraction for a Game of TicTacToe.
     /// ```no_run
-    /// let g: Game = Game::new();
-    /// g::start();
+    /// let mut g: Game = Game::new();
+    /// g.start();
     /// ```
     /// to start a round.
     #[derive(Debug)]
@@ -87,7 +87,9 @@ mod tic_tac_toe {
                     return false;
                 }
                 win_state => {
-                    println!("{}", win_state.win_msg());
+                    println!("~~~\n\nGAME OVER — {}", win_state.win_msg());
+                    self.grid.print();
+                    println!("\n")
                 }
             }
             true
@@ -304,7 +306,10 @@ mod inputs {
     /// ### `prompt()`, except it parses for a `usize`
     pub fn prompt_usize(maybe_text: Option<&str>) -> Result<usize, String> {
         use std::str::FromStr;
-        let input = prompt(maybe_text);
+        let input: String = prompt(maybe_text)
+            .chars()
+            .filter(|&c| char::is_numeric(c))
+            .collect();
 
         match usize::from_str(&input) {
             Ok(n) => Ok(n),
@@ -354,7 +359,6 @@ mod inputs {
     /// Will only return `Ok(usize)` if the user input is a number and a valid placement.
     use crate::tic_tac_toe::Grid;
     pub fn read_placement(target: &Grid) -> Result<usize, &str> {
-        
         match prompt_usize(Some("Enter cell number: ")) {
             Ok(n) => target.valid_plot(n),
             Err(_) => Err("That is not a number."),
