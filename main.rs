@@ -119,9 +119,10 @@ mod tic_tac_toe {
         println!("\nWhen prompted, type and enter one of these numbers to make a move!\nGood Luck :)\n\n~~~\n");
     }
 
-    /// Shorthand for getting the current player
+    /// Shorthand for getting the current player.
+    /// If count is even, player is 'X'; otherwise 'O'
     const fn turn(count: u32) -> char {
-        if count % 2 == 0 {
+        if count & 1 == 0 {
             'X'
         } else {
             'O'
